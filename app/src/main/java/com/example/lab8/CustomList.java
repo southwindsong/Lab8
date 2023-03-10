@@ -29,8 +29,8 @@ public class CustomList extends ArrayAdapter<City> {
 
         View view = convertView;
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.content, parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.content, parent, false);
         }
 
         City city = cities.get(position);
@@ -45,13 +45,14 @@ public class CustomList extends ArrayAdapter<City> {
 
     }
 
-    public int getCount(){
+    public int getCount() {
         return cities.size();
     }
 
     /**
      * this adds a city object to the list
      * the second phase, you can add the city
+     *
      * @param city
      */
     public void addCity(City city) {
@@ -67,9 +68,33 @@ public class CustomList extends ArrayAdapter<City> {
      */
     public boolean hasCity(City city) {
         for (City loopCity : cities) {
-            if (loopCity.compareTo(city) == 0 )
+            if (loopCity.compareTo(city) == 0)
                 return true;
         }
         return false;
+    }
+
+
+    /**
+     * Deletes a city from the list if the city is present.
+     * throws: IllegalArgumentException, if the city is not present
+     *
+     * @param city This is a candidate city to delete
+     */
+    public void deleteCity(City city) {
+        boolean hasCity = false;
+
+        for (int i = 0; i < cities.size(); i++) {
+            if (cities.get(i).compareTo(city) == 0) {
+                // found the city
+                hasCity = true;
+                cities.remove(i);
+            }
+        }
+
+        // when out of the loop, no such city, will raise exception
+        if (hasCity == false) {
+            throw new IllegalArgumentException();
+        }
     }
 }
